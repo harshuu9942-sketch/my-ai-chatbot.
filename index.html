@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My AI Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #dbeafe, #e9d5ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .chat {
+      background: white;
+      width: 90%;
+      max-width: 420px;
+      padding: 22px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px #0002;
+    }
+
+    h2 {
+      text-align: center;
+      color: #6d28d9;
+    }
+
+    #messages {
+      height: 280px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input {
+      min-width: 0;
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px;
+      background: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    p { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <div class="chat">
+    <h2>🤖 My AI Chatbot</h2>
+    <div id="messages" aria-live="polite">
+      <p><b>AI:</b> Hello! Welcome to my chatbot 😊</p>
+    </div>
+
+    <div class="input-row">
+      <input id="userInput" placeholder="Type your message..."
+             onkeydown="if(event.key==='Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const messages = document.getElementById("messages");
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      const user = document.createElement("p");
+      const label = document.createElement("b");
+      label.textContent = "You: ";
+      user.append(label, document.createTextNode(text));
+      messages.appendChild(user);
+
+      const msg = text.toLowerCase();
+      let reply = "I am still learning! Tell me something else 😊";
+
+      if (msg.includes("hello") || msg.includes("hi")) {
+        reply = "Hello! 😊 How can I help you?";
+      } else if (msg.includes("your name")) {
+        reply = "My name is My AI Chatbot 🤖";
+      } else if (msg.includes("how are you")) {
+        reply = "I am doing great! Thanks for asking.";
+      } else if (msg.includes("joke")) {
+        reply = "Why did the computer smile? It had a byte of happiness! 😄";
+      } else if (msg.includes("bye")) {
+        reply = "Goodbye! Have a wonderful day 👋";
+      }
+
+      const bot = document.createElement("p");
+      const botLabel = document.createElement("b");
+      botLabel.textContent = "AI: ";
+      bot.append(botLabel, document.createTextNode(reply));
+      messages.appendChild(bot);
+
+      messages.scrollTop = messages.scrollHeight;
+      input.value = "";
+      input.focus();
+    }
+  </script>
+</body>
+</html>
